@@ -15,7 +15,7 @@ logging:
 #      #access-token-uri: http://localhost:8091/oauth/token
 #    authorization:
 #      check-token-access: permitAll()
-security:
-  user:
-    name: robbie
-    password: 19811981
+#security:
+#  user:
+#    name: robbie
+#    password: 19811981
