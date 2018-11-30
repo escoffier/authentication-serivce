@@ -1,15 +1,27 @@
 package com.authenticationserivce.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
+
+
+    @Autowired
+    DataSource dataSource;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     @Bean
@@ -34,8 +46,9 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
          * @Date: 下午1:46 18-11-26
          */
         //super.configure(auth);
-        auth.inMemoryAuthentication()
-                .withUser("john.carnell").password("password1").roles("USER")
+        //auth.jdbcAuthentication().dataSource(dataSource);
+        auth.inMemoryAuthentication()//.passwordEncoder(passwordEncoder)
+                .withUser("john.carnell").password( "password1").roles("USER")
                 .and()
                 .withUser("william.woodward").password("password2").roles("USER", "ADMIN");
     }
